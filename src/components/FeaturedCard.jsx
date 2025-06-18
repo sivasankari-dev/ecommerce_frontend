@@ -22,7 +22,7 @@ const FeaturedCard = ({product}) => {
     //   </Link>
     // </div>
     <div className="w-full max-w-xs bg-white mb-5 border border-gray-200 rounded-lg shadow-md transform transition hover:scale-105">
-  <Link to="/product_detail" className="flex flex-col items-center p-5">
+  <Link to={`/product_detail/${product.slug}`} className="flex flex-col items-center p-5">
      <div className="w-full h-48 mb-4">
       <img
         src={`${BASE_URL}${product.image}`}

@@ -10,6 +10,8 @@ import MainLayout from "./layout/MainLayout"
 import HomePage from './pages/home/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import CategoryDetail from './pages/CategoryDetail'
+import ProductDetail from './pages/ProductDetail'
+import SearchPage from './pages/SearchPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,7 +27,9 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />}/>
-        <Route path="category_detail/:slug" element={<CategoryDetail />}/>
+        <Route path="/category_detail/:slug" element={<CategoryDetail />}/>
+        <Route path="/product_detail/:slug" element={<ProductDetail />}/>
+        <Route path="/search" element={<SearchPage />}/>
         <Route path="*" element={<NotFoundPage />}/>
         </Route>
       </Routes>
