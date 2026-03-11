@@ -4,9 +4,13 @@ import { BASE_URL } from '../api'
 
 import { useParams } from "react-router-dom"
 import ProductCard from "../components/ProductCard"
+import { toast } from "react-toastify"
 
-const ProductDetail = () => {
+const ProductDetail = ({setNumCartitems}) => {
 
+  const cart_code = localStorage.getItem("cart_code");
+  const [inCart, setInCart] = useState(false);
+ 
     const categoryMap = {
     
       1: "electronics",
@@ -23,19 +27,12 @@ const ProductDetail = () => {
     const [relatedProducts, setRelatedProducts] = useState([]);
     
         useEffect(function(){
+            window.scrollTo(0, 0);
             api.get(`product/${slug}`)
             .then(res => {
             console.log(res.data)
             setProduct(res.data)
-            // console.log(products)
-            const categorySlug = categoryMap[res.data.category];
-
-           api.get(`category/${categorySlug}`).then((catRes) => {
-           const related = (catRes.data.products || []).filter(
-            (p) => p.id !== res.data.id
-          );
-           setRelatedProducts(related);
-          });
+            setRelatedProducts(res.data.similar_products);
         })
     
         .catch(err => {
@@ -44,7 +41,38 @@ const ProductDetail = () => {
     
         },[slug])
 
-        const isActive = product.category === 5;
+      const isActive = product.category === 5;
+
+      useEffect(() =>{
+        if(product.id){
+        api.get(`product_in_cart?cart_code=${cart_code}&product_id=${product.id}`)
+          .then(res => {
+            console.log(res.data)
+            setInCart(res.data.product_in_cart);
+          })
+
+          .catch(err => {
+            console.log(err.message)
+          })
+        }
+
+      }, [product.id,cart_code])
+
+      const newItem = {cart_code:cart_code, product_id:product.id}
+
+      function add_to_cart() {
+          api.post("add_to_cart/", newItem)
+            .then(res => {
+              console.log(res.data)
+              toast.success("Product added to cart")
+              setInCart(true)
+              setNumCartitems(curr => curr + 1);
+            })
+      
+            .catch(err => {
+              console.log(err.message)
+            })
+        }
 
 
   return (
@@ -54,11 +82,13 @@ const ProductDetail = () => {
         
         {/* Product Image */}
         <div className="w-full h-[500px] flex items-center justify-center bg-white rounded-lg overflow-hidden">
+          {product.image && (
           <img
             src={`${BASE_URL}${product.image}`}
             alt={product.name}
             className={`w-full h-full rounded-lg mr-10  ${isActive ? "object-contain" : "object-cover" }`}
           />
+          )}
         </div>
 
         {/* Product Info */}
@@ -85,11 +115,15 @@ const ProductDetail = () => {
           {/* Add to Cart Button */}
 
           <div className="flex flex-col md:flex-row w-full gap-4">
-            <button className="flex-1 px-6 py-2 border-2 border-sky-950 text-gray-600 text-lg rounded-lg hover:bg-sky-950 hover:text-white transition-transform">
+            <button className="flex-1 px-6 py-2 border-2 border-sky-950 cursor-pointer text-gray-600 text-lg rounded-lg hover:bg-sky-950 hover:text-white transition-transform">
                 Wishlist
             </button>
-            <button className="flex-1 px-6 py-2 bg-sky-950 text-white text-lg rounded-lg hover:bg-sky-900 transition-colors">
-                Add to Cart
+            <button 
+            // type = "button"
+            onClick={add_to_cart}
+            disabled={inCart}
+            className={`flex-1 px-6 py-2 ${inCart ? 'bg-gray-600' : 'bg-sky-950 cursor-pointer'}  text-white text-lg rounded-lg hover:${inCart ? 'bg-gray-600' : 'bg-sky-900'} transition-colors`}>
+                {inCart ? "Product added to cart" : "Add to Cart" }
             </button>
             </div>
         </div>

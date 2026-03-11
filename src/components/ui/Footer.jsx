@@ -7,7 +7,7 @@ const Footer = () => {
     <div className='max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-10'>
         <div className='w-1/3 text-justify text-white'>
             <h5 className="text-xl font-bold mb-2">SHOPPRO</h5>
-            <p className="text-sm text-gray-300 leading-relaxed">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque eius magnam possimus sequi earum! Cupiditate perspiciatis minima a cumque, eum reiciendis debitis numquam vitae odio, necessitatibus est molestias adipisci assumenda!</p>
+            <p className="text-sm text-white leading-relaxed">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque eius magnam possimus sequi earum! Cupiditate perspiciatis minima a cumque, eum reiciendis debitis numquam vitae odio, necessitatibus est molestias adipisci assumenda!</p>
         </div>
          <div className='w-1/3 text-center text-white'>
             <h5 className="text-xl font-bold mb-2">Featured Products</h5>

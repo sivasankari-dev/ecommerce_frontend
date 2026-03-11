@@ -20,7 +20,7 @@ const[categories, setCategories] = useState([])
     },[])
 
   return (
-     <div className='mt-10 text-center'>
+     <div className='mt-10 text-center scroll-mt-20 md:scroll-mt-24' id="shop">
         <h4 className='m-5 text-xl font-bold text-gray-600'>Popular Categories</h4>
         <div className='flex justify-center items-center flex-wrap gap-10'>
         {categories.map(category => <CategoryCard  key={category.id} category={category} size={size}/> )}

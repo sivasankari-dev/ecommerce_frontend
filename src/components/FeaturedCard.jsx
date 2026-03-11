@@ -1,8 +1,27 @@
 
 import { Link } from 'react-router-dom'
 import { BASE_URL } from '../api'
+import api from '../api'
+
 
 const FeaturedCard = ({product}) => {
+
+  //  const cart_code = localStorage.getItem("cart_code")
+
+  // const newItem = { cart_code: cart_code, product_id: product.id }
+
+  // function add_to_cart() {
+  //   api.post("add_to_cart/", newItem)
+  //     .then(res => {
+  //       console.log(res.data)
+  //       setCart(res.data);
+  //     })
+
+  //     .catch(err => {
+  //       console.log(err.message)
+  //     })
+  // }
+
   return (
     // <div className='max-w-sm bg-white shadow-lg rounded-lg overflow-hidden'> 
     //   <Link to="/product_detail">
@@ -22,7 +41,8 @@ const FeaturedCard = ({product}) => {
     //   </Link>
     // </div>
     <div className="w-full max-w-xs bg-white mb-5 border border-gray-200 rounded-lg shadow-md transform transition hover:scale-105">
-  <Link to={`/product_detail/${product.slug}`} className="flex flex-col items-center p-5">
+      <div  className="flex flex-col items-center p-5">
+  <Link to={`/product_detail/${product.slug}`}>
      <div className="w-full h-48 mb-4">
       <img
         src={`${BASE_URL}${product.image}`}
@@ -43,13 +63,24 @@ const FeaturedCard = ({product}) => {
     </p>
     <button
       type="button"
-      className="w-full text-white bg-sky-950 hover:bg-sky-900 focus:ring-4 
+      className="w-full text-white bg-sky-950 hover:bg-sky-900 focus:ring-4 cursor-pointer
+        focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2 
+        text-center"
+    >
+     Buy Now
+    </button>
+     </Link>
+    {/* <button
+      type="button"
+      onClick={add_to_cart}
+      className="w-full text-white bg-sky-950 hover:bg-sky-900 focus:ring-4 cursor-pointer
         focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2 
         text-center"
     >
       Add to cart
-    </button>
-  </Link>
+    </button> */}
+ 
+   </div>
   
 </div>
 

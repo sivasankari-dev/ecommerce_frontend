@@ -22,7 +22,7 @@ const Featured = () => {
    
 
   return (
-    <div className='mt-8 text-center px-5' id="shop">
+    <div className='mt-8 text-center px-5'>
       <h4 className='m-5 text-xl font-bold text-gray-600'>Trending Now</h4>
     <div className='mt-8 flex flex-wrap justify-center gap-10'>
         {products.map(product => <FeaturedCard  key={product.id} product={product}/> )}
